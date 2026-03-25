@@ -1,6 +1,7 @@
 import json
 from docx import Document
-
+import argparse
+import os
 def insert_row_before(table, row_idx):
     """
     核心辅助函数：在表格的指定行之前插入一个新行。
@@ -13,6 +14,9 @@ def insert_row_before(table, row_idx):
     return new_row
 
 def fill_lesson_plan(json_path, template_path, output_path):
+    print(f"读取数据: {json_path}")
+    print(f"使用模板: {template_path}")
+    print(f"生成文件: {output_path}")
     # 1. 加载 JSON 数据
     with open(json_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -87,9 +91,25 @@ def fill_lesson_plan(json_path, template_path, output_path):
     convert(output_path, "output.pdf")
 
 if __name__ == "__main__":
-    base_dir = r"C:\Users\22903\.agents\skills\jiaoan_gen_skill"
-    fill_lesson_plan(
-        f'{base_dir}\\assets\\data.json', 
-        f'{base_dir}\\references\\云服务实践-教案模板.docx', 
-        f'{base_dir}\\第5周教案_带作业板书输出.docx'
-    )
+    # 默认基础路径
+    DEFAULT_BASE = r"C:\Users\22903\.agents\skills\jiaoan_gen_skill"
+
+    parser = argparse.ArgumentParser(description="工学一体化教案生成工具")
+
+    # 定义参数，并设置你代码中原本的路径作为默认值
+    parser.add_argument("-j", "--json", 
+                        default=os.path.join(DEFAULT_BASE, "assets", "data.json"),
+                        help="JSON 数据文件路径")
+    
+    parser.add_argument("-t", "--template", 
+                        default=os.path.join(DEFAULT_BASE, "references", "云服务实践-教案模板.docx"),
+                        help="Word 模板文件路径")
+    
+    parser.add_argument("-o", "--output", 
+                        default=os.path.join(DEFAULT_BASE, "第5周教案_带作业板书输出.docx"),
+                        help="生成的教案输出路径")
+
+    args = parser.parse_args()
+
+    # 调用函数
+    fill_lesson_plan(args.json, args.template, args.output)

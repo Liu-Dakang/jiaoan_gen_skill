@@ -1,7 +1,13 @@
+'''
+功能：根据 JSON 数据填充 Word 模板，生成教案文档。
+使用对象：一体化教案生成导入脚本
+'''
+
 import json
 from docx import Document
-
+import argparse
 def fill_template_bulletproof(json_path, template_path, output_path):
+    print(f"正在处理...\nJSON: {json_path}\n模板: {template_path}\n输出: {output_path}")
     print("正在加载 JSON 数据...")
     with open(json_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -124,8 +130,16 @@ def fill_template_bulletproof(json_path, template_path, output_path):
 
 
 if __name__ == "__main__":
-    JSON_FILE = "assets\\一体化模板.json"           
-    TEMPLATE_FILE = "references\\一体化教案空白模板.docx" 
-    OUTPUT_FILE = "新生成_工学一体化教案.docx" 
-    
-    fill_template_bulletproof(JSON_FILE, TEMPLATE_FILE, OUTPUT_FILE)
+    # 创建解析器
+    parser = argparse.ArgumentParser(description="工学一体化教案自动生成工具")
+
+    # 添加命令行参数
+    parser.add_argument("-j", "--json", default="assets\\一体化模板.json", help="输入的 JSON 数据文件路径")
+    parser.add_argument("-t", "--template", default="references\\一体化教案空白模板.docx", help="Word 模板文件路径")
+    parser.add_argument("-o", "--output", default="新生成_工学一体化教案.docx", help="生成的教案输出路径")
+
+    # 解析参数
+    args = parser.parse_args()
+
+    # 调用你的核心函数
+    fill_template_bulletproof(args.json, args.template, args.output)
