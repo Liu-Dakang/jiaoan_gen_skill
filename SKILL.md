@@ -46,17 +46,17 @@ rules:
 执行步骤 (Execution Steps)
 
 1. 询问用户输入的周次或课程主题。
+   询问用户的要求格式（一体化/专业基础课）
 2. 如果没有明确的周次或课程主题，则询问用户上课的时间。
-3. 读取文件C:\Users\22903\Desktop\CamScanner\.opencode\skills\.agents\skills\jiaoan_gen_skill\references\《专业核心课（一体化课程）学期授课计划》-云服务实践.docx
+3. 读取文件C:\Users\22903\.agents\skills\jiaoan_gen_skill\references\《专业核心课（一体化课程）学期授课计划》-云服务实践.docx
    查看对应周次课程的详细内容，并生成相应的教案数据。
 4. 生成教案前需要输出主要学习内容给用户进行确认
-5. 参考assets\data_model.json 模板，生成符合格式要求的 JSON 数据。
+5. 参考assets文件夹中对应的json 模板，生成符合格式要求的 JSON 数据。
 6. 在完成 JSON 内容的生成后，Agent 需要执行以下自动化流转步骤：
 
-保存数据文件：
-将生成的结果内容保存到以下路径的 JSON 文件中：
-.opencode\skills\jiaoan_gen_skill\assets\data.json
+根据用户的要求（一体化/专业基础课）保存数据文件：
+将生成的结果内容保存到以下路径的 JSON 文件中（C:\Users\22903\.agents\skills\jiaoan_gen_skill\assets）：
 
-执行命令：
-
-C:/Python314/python.exe c:/Users/22903/Desktop/CamScanner/.opencode/skills/.agents/skills/jiaoan_gen_skill/Scripts/import_content_json.py
+根据用户的要求（一体化/专业基础课）执行命令：
+脚本文件夹：
+C:\Users\22903\.agents\skills\jiaoan_gen_skill\Scripts
